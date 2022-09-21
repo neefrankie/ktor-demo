@@ -3,26 +3,12 @@
  */
 package com.ftchinese.api
 
-import io.ktor.server.application.*
+import com.ftchinese.api.routes.contentRoutes
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
-
-class App {
-    val greeting: String
-        get() {
-            return "Hello World!"
-        }
-}
 
 fun main() {
     embeddedServer(Netty, port = 8080) {
-        routing {
-            get("/") {
-                call.respondText("Hello, world!")
-
-            }
-        }
+        contentRoutes()
     }.start(wait = true)
 }

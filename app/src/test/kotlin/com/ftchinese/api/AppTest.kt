@@ -6,6 +6,13 @@ package com.ftchinese.api
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 
+class App {
+    val greeting: String
+        get() {
+            return "Hello World!"
+        }
+}
+
 class AppTest {
     @Test fun appHasAGreeting() {
         val classUnderTest = App()
