@@ -12,8 +12,10 @@ val logback_version: String by project
 
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.6.21"
+    kotlin("jvm") version "1.7.10"
+    kotlin("plugin.serialization") version "1.7.10"
     id("io.ktor.plugin") version "2.1.1"
+
     // Apply the application plugin to add support for building a CLI application in Java.
     application
 }
@@ -38,6 +40,8 @@ dependencies {
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
 
     // This dependency is used by the application.
     implementation("com.google.guava:guava:31.0.1-jre")
