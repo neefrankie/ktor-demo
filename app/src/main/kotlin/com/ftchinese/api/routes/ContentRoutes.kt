@@ -1,5 +1,7 @@
 package com.ftchinese.api.routes
 
+import com.ftchinese.api.dao.dao
+import com.ftchinese.api.models.errNotFound
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -7,8 +9,17 @@ import io.ktor.server.routing.*
 fun Route.storyByIdRoute() {
     get("/stories/{id}") {
         val id = call.parameters["id"]
+        if (id == null) {
+            call.respond(errNotFound())
+            return@get
+        }
 
-        call.respondText { "Story $id" }
+        val story = dao.story(id)
+        if (story == null) {
+            call.respond(errNotFound())
+            return@get
+        }
+        call.respond(story)
     }
 }
 
