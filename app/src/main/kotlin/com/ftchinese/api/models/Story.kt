@@ -1,5 +1,8 @@
-package com.ftchinese.api.data
+package com.ftchinese.api.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Story(
     val id: String,
     val kind: ContentKind,
@@ -14,3 +17,4 @@ data class Story(
     val bilingual: Boolean = false,
     val body: String,
 )
+

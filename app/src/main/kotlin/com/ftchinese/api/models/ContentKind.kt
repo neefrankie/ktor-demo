@@ -1,4 +1,4 @@
-package com.ftchinese.api.data
+package com.ftchinese.api.models
 
 enum class ContentKind {
     Story,

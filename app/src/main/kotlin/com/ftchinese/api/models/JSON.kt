@@ -1,4 +1,4 @@
-package com.ftchinese.api.data
+package com.ftchinese.api.models
 
 import kotlinx.serialization.json.Json
 
