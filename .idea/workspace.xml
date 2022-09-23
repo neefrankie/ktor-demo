@@ -4,18 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d31e6966-2b3f-4d8d-af2c-59053d4fd555" name="Changes" comment="add kotlin serialization">
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/kotlin/com/ftchinese/api/dao/DAOFacade.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/kotlin/com/ftchinese/api/dao/DAOFacadeImpl.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/kotlin/com/ftchinese/api/dao/DatabaseFactory.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/kotlin/com/ftchinese/api/models/ErrorMessage.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/kotlin/com/ftchinese/api/models/RawStory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="d31e6966-2b3f-4d8d-af2c-59053d4fd555" name="Changes" comment="add json and db">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/kotlin/com/ftchinese/api/App.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/kotlin/com/ftchinese/api/App.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/kotlin/com/ftchinese/api/models/RawStory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/kotlin/com/ftchinese/api/models/RawStory.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/kotlin/com/ftchinese/api/models/Story.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/kotlin/com/ftchinese/api/models/Story.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/kotlin/com/ftchinese/api/routes/ContentRoutes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/kotlin/com/ftchinese/api/routes/ContentRoutes.kt" afterDir="false" />
     </list>
@@ -49,13 +41,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateKotlinClassDialog.RecentsKey">
       <recent name="com.ftchinese.api.dao" />
@@ -108,7 +100,56 @@
       <option name="project" value="LOCAL" />
       <updated>1663828798133</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add db and json support">
+      <created>1663840238759</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1663840238759</updated>
+    </task>
+    <task id="LOCAL-00005" summary="update">
+      <created>1663840260856</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1663840260856</updated>
+    </task>
+    <task id="LOCAL-00006" summary="story">
+      <created>1663840273611</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1663840273611</updated>
+    </task>
+    <task id="LOCAL-00007" summary="json type for error">
+      <created>1663840281787</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1663840281787</updated>
+    </task>
+    <task id="LOCAL-00008" summary="dao with exposed">
+      <created>1663840297110</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1663840297110</updated>
+    </task>
+    <task id="LOCAL-00009" summary="retrieve data">
+      <created>1663840307130</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1663840307130</updated>
+    </task>
+    <task id="LOCAL-00010" summary="add json and db">
+      <created>1663840320059</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1663840320059</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -125,6 +166,13 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add exposed" />
     <MESSAGE value="add kotlin serialization" />
-    <option name="LAST_COMMIT_MESSAGE" value="add kotlin serialization" />
+    <MESSAGE value="add db and json support" />
+    <MESSAGE value="update" />
+    <MESSAGE value="story" />
+    <MESSAGE value="json type for error" />
+    <MESSAGE value="dao with exposed" />
+    <MESSAGE value="retrieve data" />
+    <MESSAGE value="add json and db" />
+    <option name="LAST_COMMIT_MESSAGE" value="add json and db" />
   </component>
 </project>
