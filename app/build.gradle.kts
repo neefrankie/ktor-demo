@@ -50,6 +50,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
     implementation("mysql:mysql-connector-java:8.0.30")
+    implementation("com.zaxxer:HikariCP:4.0.3")
 
     // This dependency is used by the application.
     implementation("com.google.guava:guava:31.0.1-jre")
