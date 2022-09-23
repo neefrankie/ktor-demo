@@ -19,7 +19,7 @@ fun Route.storyByIdRoute() {
             call.respond(errNotFound())
             return@get
         }
-        call.respond(story)
+        call.respond(story.build())
     }
 }
 
