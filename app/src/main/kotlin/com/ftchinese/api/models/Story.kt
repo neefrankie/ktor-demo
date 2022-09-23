@@ -13,15 +13,15 @@ data class Story(
     val title: String,
     val standfirst: String,
     val coverUrl: String? = null,
-    val tags: List<String>,
+    val tags: String,
     val audioUrl: String? = null,
 
     // Details
     val bilingual: Boolean = false,
-    val areas: List<String>,
-    val genre: List<String>,
-    val industries: List<String>,
-    val topics: List<String>,
+    val regions: String,
+    val genres: String,
+    val industries: String,
+    val topics: String,
 
     val contentCn: StoryDetails,
     val contentEn: StoryDetails,
