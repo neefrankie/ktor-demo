@@ -10,6 +10,7 @@
 val ktor_version: String by project
 val logback_version: String by project
 val exposed_version: String by project
+val h2_version: String by project
 
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
@@ -24,9 +25,10 @@ plugins {
 version = "0.1.0"
 
 repositories {
-    maven {
-        url = uri("https://maven.aliyun.com/repository/central")
-    }
+    // aliyun repository has a serious problem: some jars downloaded are empty.
+//    maven {
+//        url = uri("https://maven.aliyun.com/repository/central")
+//    }
     // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
@@ -51,6 +53,12 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
     implementation("mysql:mysql-connector-java:8.0.30")
     implementation("com.zaxxer:HikariCP:4.0.3")
+    implementation("com.h2database:h2:$h2_version")
+
+    implementation("io.ktor:ktor-server-freemarker:$ktor_version")
+    implementation("io.ktor:ktor-server-html-builder:$ktor_version")
+
+    implementation("io.github.cdimascio:dotenv-kotlin:6.3.1")
 
     // This dependency is used by the application.
     implementation("com.google.guava:guava:31.0.1-jre")
@@ -58,6 +66,7 @@ dependencies {
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 
+    testImplementation("io.ktor:ktor-server-test-host:$ktor_version")
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 }
