@@ -7,6 +7,7 @@ fun FORM.textInputControl(
     type: InputType,
     label: String,
     value: String = "",
+    desc: String? = null
 ) {
     div(classes = "mb-2") {
         label(classes = "form-label") {
@@ -20,6 +21,12 @@ fun FORM.textInputControl(
         ) {
             this.id = name
             this.value = value
+        }
+
+        if (desc != null) {
+            small(classes = "form-text text-muted") {
+                +desc
+            }
         }
     }
 }

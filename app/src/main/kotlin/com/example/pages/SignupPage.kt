@@ -2,10 +2,10 @@ package com.example.pages
 
 import kotlinx.html.*
 
-fun HTML.loginPage() {
-    centerLayout(title = "Login") {
+fun HTML.signupPage() {
+    centerLayout(title = "Sign Up") {
         h4(classes = "text-center") {
-            +"Log In"
+            +"Sign Up"
         }
 
         form(method = FormMethod.post) {
@@ -19,16 +19,18 @@ fun HTML.loginPage() {
                 type = InputType.password,
                 label = "Password"
             )
+            textInputControl(
+                name = "confirmPassword",
+                type = InputType.password,
+                label = "Confirm Password"
+            )
 
             submitButton()
         }
 
         div(classes = "hstack gap-3 mt-3") {
-            a(href = "/auth/forgot-password") {
-                +"Forgot password?"
-            }
-            a(href = "/auth/signup", classes = "ms-auto") {
-                +"Sign up"
+            a(href = "/auth/login", classes = "ms-auto") {
+                +"Log In"
             }
         }
     }

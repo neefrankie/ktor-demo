@@ -3,7 +3,7 @@
  */
 package com.example
 
-import com.example.plugins.configureWebRouting
+import com.example.plugins.configureArticleRouting
 import com.example.plugins.configureSerialization
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
@@ -16,7 +16,7 @@ class OrderRouteTests {
     @Test
     fun testGetOrder() = testApplication {
         application {
-            configureWebRouting()
+            configureArticleRouting()
             configureSerialization()
         }
         val response = client.get("/order/2020-04-06-01")

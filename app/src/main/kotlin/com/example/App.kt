@@ -12,22 +12,18 @@ import io.ktor.server.netty.*
 fun main() {
     embeddedServer(Netty, port = 8081) {
         DatabaseFactory.init()
-        module1()
-        module2()
-        authModule()
+        webModule()
+        apiModule()
     }.start(wait = true)
 }
 
-fun Application.module1() {
-    configureWebRouting()
+fun Application.webModule() {
+    configureAuthRouting()
+    configureArticleRouting()
 }
 
-fun Application.module2() {
+fun Application.apiModule() {
     configureApiRouting()
     // Add plugin to specified module.
     configureSerialization()
-}
-
-fun Application.authModule() {
-    configureAuthRouting()
 }

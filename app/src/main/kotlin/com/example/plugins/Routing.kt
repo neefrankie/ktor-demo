@@ -13,7 +13,30 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 
-fun Application.configureWebRouting() {
+fun Application.configureAuthRouting() {
+    routing {
+        trace { application.log.trace(it.buildText()) }
+        route("/auth") {
+            get("login") {
+                call.respondHtml(HttpStatusCode.OK) {
+                    loginPage()
+                }
+            }
+            get("signup") {
+                call.respondHtml(HttpStatusCode.OK) {
+                    signupPage()
+                }
+            }
+            get("forgot-password") {
+                call.respondHtml(HttpStatusCode.OK) {
+                    forgotPasswordPage()
+                }
+            }
+        }
+    }
+}
+
+fun Application.configureArticleRouting() {
     routing {
         get("/") {
             call.respondRedirect("articles")
@@ -98,15 +121,3 @@ fun Application.configureApiRouting() {
     }
 }
 
-fun Application.configureAuthRouting() {
-    routing {
-        trace { application.log.trace(it.buildText()) }
-        route("/auth") {
-            get("login") {
-                call.respondHtml(HttpStatusCode.OK) {
-                    loginPage()
-                }
-            }
-        }
-    }
-}
