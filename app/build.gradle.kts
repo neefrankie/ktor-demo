@@ -56,6 +56,7 @@ dependencies {
     implementation("com.h2database:h2:$h2_version")
 
     implementation("io.ktor:ktor-server-html-builder:$ktor_version")
+    implementation("io.ktor:ktor-server-auth:$ktor_version")
 
     implementation("io.github.cdimascio:dotenv-kotlin:6.3.1")
 
