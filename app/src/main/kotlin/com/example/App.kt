@@ -14,21 +14,20 @@ fun main() {
         DatabaseFactory.init()
         module1()
         module2()
-        module3()
+        authModule()
     }.start(wait = true)
 }
 
 fun Application.module1() {
     configureWebRouting()
-    // Add plugin to specified module.
-    configureTemplating()
 }
 
 fun Application.module2() {
     configureApiRouting()
+    // Add plugin to specified module.
     configureSerialization()
 }
 
-fun Application.module3() {
-    configurePlaygroundRouting()
+fun Application.authModule() {
+    configureAuthRouting()
 }
