@@ -1,20 +1,17 @@
 package com.example.plugins
 
 import com.example.dao.dao
-import com.example.routes.*
+import com.example.pages.*
+import com.example.routes.customerRouting
+import com.example.routes.orderRouting
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.freemarker.*
 import io.ktor.server.html.*
 import io.ktor.server.http.content.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
-import kotlinx.html.body
-import kotlinx.html.h1
-import kotlinx.html.head
-import kotlinx.html.title
 
 fun Application.configureWebRouting() {
     routing {
@@ -24,11 +21,16 @@ fun Application.configureWebRouting() {
         route("articles") {
             get {
                 // Show a list of articles
-                call.respond(FreeMarkerContent("index.ftl", mapOf("articles" to dao.allArticles())))
+                val articles = dao.allArticles()
+                call.respondHtml {
+                    articleListPage(articles)
+                }
             }
             get("new") {
                 // Show a page with fields for creating a new article
-                call.respond(FreeMarkerContent("new.ftl", model = null))
+                call.respondHtml(status = HttpStatusCode.OK) {
+                    newArticlePage()
+                }
             }
             post {
                 // save an article
@@ -41,12 +43,26 @@ fun Application.configureWebRouting() {
             get("{id}") {
                 // Show an article with a specific id
                 val id = call.parameters.getOrFail<Int>("id").toInt()
-                call.respond(FreeMarkerContent("show.ftl", mapOf("article" to dao.article(id))))
+                val article = dao.article(id)
+                call.respondHtml {
+                    if (article != null) {
+                        articlePage(article)
+                    } else {
+                        notFoundPage()
+                    }
+                }
             }
             get("{id}/edit") {
                 // Show a page with fields for editing an article
                 val id = call.parameters.getOrFail<Int>("id").toInt()
-                call.respond(FreeMarkerContent("edit.ftl", mapOf("article" to dao.article(id))))
+                val article = dao.article(id)
+                call.respondHtml {
+                    if (article != null) {
+                        articleEditPage(article)
+                    } else {
+                        notFoundPage()
+                    }
+                }
             }
             post("{id}") {
                 // Update or delete an article
@@ -82,23 +98,13 @@ fun Application.configureApiRouting() {
     }
 }
 
-fun Application.configurePlaygroundRouting() {
+fun Application.configureAuthRouting() {
     routing {
         trace { application.log.trace(it.buildText()) }
-        route("/playground") {
-            get("html-dsl") {
-                val name = "Ktor"
+        route("/auth") {
+            get("login") {
                 call.respondHtml(HttpStatusCode.OK) {
-                    head {
-                        title {
-                            +name
-                        }
-                    }
-                    body {
-                        h1 {
-                            +"Hello from $name!"
-                        }
-                    }
+                    loginPage()
                 }
             }
         }
