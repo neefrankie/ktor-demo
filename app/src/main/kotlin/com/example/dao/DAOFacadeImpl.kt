@@ -1,10 +1,14 @@
 package com.example.dao
 
 import com.example.dao.DatabaseFactory.articleQuery
-import com.example.models.Article
-import com.example.models.Articles
+import com.example.dao.DatabaseFactory.userQuery
+import com.example.models.*
+import com.google.common.hash.Hashing
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.exposed.sql.*
+import java.nio.charset.StandardCharsets
+import java.time.ZonedDateTime
+import java.util.UUID
 
 class DAOFacadeImpl : DAOFacade {
     private fun resultRowToArticle(row: ResultRow) = Article(
@@ -40,6 +44,30 @@ class DAOFacadeImpl : DAOFacade {
 
     override suspend fun deleteArticle(id: Int): Boolean = articleQuery {
         Articles.deleteWhere { Articles.id eq id } > 0
+    }
+
+    private fun resultRowToAccount(row: ResultRow) = Account(
+        id = row[UserTable.id],
+        wxId = row[UserTable.wxId],
+        email = row[UserTable.email],
+        mobile = row[UserTable.mobile],
+        userName = row[UserTable.userName],
+        createdAt = row[UserTable.createdAt]
+    )
+
+    override suspend fun emailSignUp(email: String, password: String): Account? = userQuery {
+
+        val insertStmt = UserTable.insert {
+            it[UserTable.id] = UUID.randomUUID().toString()
+            it[UserTable.email] = email
+            it[UserTable.password] = Hashing.sha256()
+                .hashString(password, StandardCharsets.UTF_8)
+                .asBytes()
+            it[UserTable.createdAt] = ZonedDateTime.now()
+                .toEpochSecond()
+        }
+
+        insertStmt.resultedValues?.singleOrNull()?.let(::resultRowToAccount)
     }
 }
 
