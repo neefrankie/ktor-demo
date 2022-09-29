@@ -1,10 +1,11 @@
 package com.example.pages
 
+import com.example.models.Account
 import com.example.models.Article
 import kotlinx.html.*
 
-fun HTML.articleListPage(articles: List<Article>) {
-    articleLayout(title = "All Journals") {
+fun HTML.articleListPage(articles: List<Article>, account: Account?) {
+    articleLayout(title = "All Journals", account = account) {
         div(classes = "text-end border-bottom mt-3 pb-3") {
             a(
                 classes = "btn btn-link",

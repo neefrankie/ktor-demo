@@ -1,6 +1,7 @@
 package com.example.routes
 
 import com.example.dao.dao
+import com.example.models.Account
 import com.example.models.Article
 import com.example.models.ArticleForm
 import com.example.pages.*
@@ -11,6 +12,7 @@ import io.ktor.server.html.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.server.sessions.*
 import io.ktor.server.util.*
 
 fun Route.articleRouting() {
@@ -19,7 +21,8 @@ fun Route.articleRouting() {
             // Show a list of articles
             val articles = dao.allArticles()
             call.respondHtml {
-                articleListPage(articles)
+                val account = call.sessions.get<Account>()
+                articleListPage(articles, account)
             }
         }
         get("{id}") {
@@ -28,7 +31,8 @@ fun Route.articleRouting() {
             val article = dao.article(id)
             call.respondHtml {
                 if (article != null) {
-                    articlePage(article)
+                    val account = call.sessions.get<Account>()
+                    articlePage(article, account)
                 } else {
                     notFoundPage()
                 }
@@ -36,9 +40,10 @@ fun Route.articleRouting() {
         }
         authenticate("auth-session") {
             get("new") {
+                val account = call.sessions.get<Account>()
                 // Show a page with fields for creating a new article
                 call.respondHtml(status = HttpStatusCode.OK) {
-                    newArticlePage()
+                    newArticlePage(account = account)
                 }
             }
             post {
@@ -53,10 +58,12 @@ fun Route.articleRouting() {
                     val article = dao.addNewArticle(v.title, v.body)
                     call.respondRedirect("/articles/${article?.id}")
                 } else {
+                    val account = call.sessions.get<Account>()
                     call.respondHtml(status = HttpStatusCode.OK) {
                         newArticlePage(
                             fieldErr = err,
-                            value = v
+                            value = v,
+                            account = account
                         )
                     }
                 }
@@ -66,9 +73,10 @@ fun Route.articleRouting() {
                 // Show a page with fields for editing an article
                 val id = call.parameters.getOrFail<Int>("id").toInt()
                 val article = dao.article(id)
+                val account = call.sessions.get<Account>()
                 call.respondHtml {
                     if (article != null) {
-                        articleEditPage(article)
+                        articleEditPage(article, account = account)
                     } else {
                         notFoundPage()
                     }
@@ -89,12 +97,13 @@ fun Route.articleRouting() {
                             dao.editArticle(id, v.title, v.body)
                             call.respondRedirect("/articles/$id")
                         } else {
+                            val account = call.sessions.get<Account>()
                             call.respondHtml {
                                 articleEditPage(Article(
                                     id = id,
                                     title = v.title,
                                     body = v.body
-                                ))
+                                ), account = account)
                             }
                         }
                     }

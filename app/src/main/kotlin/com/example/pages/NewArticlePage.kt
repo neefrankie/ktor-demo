@@ -1,5 +1,6 @@
 package com.example.pages
 
+import com.example.models.Account
 import com.example.models.ArticleForm
 import kotlinx.html.*
 
@@ -30,9 +31,10 @@ fun FORM.articleForm(
 fun HTML.newArticlePage(
     value: ArticleForm? = null,
     fieldErr: Map<String, String>? = null,
-    formErr: String? = null
+    formErr: String? = null,
+    account: Account?
 ) {
-    articleLayout("Create article") {
+    articleLayout("Create article", account) {
         div {
             h3 { +"Crate article" }
 

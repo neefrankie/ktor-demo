@@ -1,16 +1,33 @@
 package com.example.pages
 
+import com.example.models.Account
 import kotlinx.html.*
 
-fun HTML.articleLayout(title: String, block: DIV.() -> Unit) {
+fun HTML.articleLayout(
+    title: String,
+    account: Account? = null,
+    block: DIV.() -> Unit
+) {
     baseLayout(title) {
         nav(
             classes = "navbar bg-light"
         ) {
             div(classes = "container") {
-                a( href = "/", classes = "navbar-brand") {
-                    img(src = "/static/ktor_logo.png")
-                    +"Kotlin Ktor Journal"
+                div(classes = "hstack") {
+                    a( href = "/", classes = "navbar-brand") {
+                        img(src = "/static/ktor_logo.png")
+                        +"Kotlin Ktor Journal"
+                    }
+
+                    div(classes = "ms-auto") {
+                        if (account != null) {
+                            span { +account.displayName }
+                            a(href = "/auth/logout") {
+                                +"Logout"
+                            }
+                        }
+
+                    }
                 }
             }
         }

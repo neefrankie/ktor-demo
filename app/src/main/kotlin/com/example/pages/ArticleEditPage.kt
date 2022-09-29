@@ -1,5 +1,6 @@
 package com.example.pages
 
+import com.example.models.Account
 import com.example.models.Article
 import com.example.models.ArticleForm
 import kotlinx.html.*
@@ -8,8 +9,9 @@ fun HTML.articleEditPage(
     article: Article,
     fieldErr: Map<String, String>? = null,
     formErr: String? = null,
+    account: Account?
 ) {
-    articleLayout(title = article.title) {
+    articleLayout(title = article.title, account) {
         div(classes = "mt-3") {
 
             div(classes = "d-flex justify-content-between align-items-center") {
