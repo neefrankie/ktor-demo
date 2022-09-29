@@ -1,15 +1,24 @@
 package com.example.pages
 
 import com.example.models.Article
+import com.example.models.ArticleForm
 import kotlinx.html.*
 
-fun HTML.articleEditPage(article: Article) {
+fun HTML.articleEditPage(
+    article: Article,
+    fieldErr: Map<String, String>? = null,
+    formErr: String? = null,
+) {
     articleLayout(title = article.title) {
         div(classes = "mt-3") {
 
             div(classes = "d-flex justify-content-between align-items-center") {
                 h3 {
                     +"Edit article"
+                }
+
+                if (!formErr.isNullOrEmpty()) {
+                    alert(formErr)
                 }
 
                 form(
@@ -44,20 +53,10 @@ fun HTML.articleEditPage(article: Article) {
                     this.value = "update"
                 }
 
-                textInputControl(
-                    name = "title",
-                    type = InputType.text,
-                    label = "Title",
-                    value = article.title
+                articleForm(
+                    value = ArticleForm(article.title, article.body),
+                    fieldErr = fieldErr
                 )
-
-                textAreaControl(
-                    name = "body",
-                    label = "Body",
-                    content = article.body
-                )
-
-                submitButton()
             }
         }
     }

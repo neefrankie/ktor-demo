@@ -1,28 +1,49 @@
 package com.example.pages
 
+import com.example.models.ArticleForm
 import kotlinx.html.*
 
-fun HTML.newArticlePage() {
+fun FORM.articleForm(
+    value: ArticleForm? = null,
+    fieldErr: Map<String, String>? = null,
+) {
+    textInputControl(
+        name = "title",
+        type = InputType.text,
+        label = "Title",
+        value = value?.title ?: "",
+        required = true,
+        error = fieldErr?.get("title")
+    )
+
+    textAreaControl(
+        name = "body",
+        label = "Body",
+        content = value?.body ?: "",
+        required = true,
+        error = fieldErr?.get("body")
+    )
+
+    submitButton()
+}
+
+fun HTML.newArticlePage(
+    value: ArticleForm? = null,
+    fieldErr: Map<String, String>? = null,
+    formErr: String? = null
+) {
     articleLayout("Create article") {
         div {
             h3 { +"Crate article" }
+
+            if (!formErr.isNullOrEmpty()) {
+                alert(formErr)
+            }
             form(
                 action = "/articles",
                 method = FormMethod.post
             ) {
-                textInputControl(
-                    name = "title",
-                    type = InputType.text,
-                    label = "Title",
-                )
-
-                textAreaControl(
-                    name = "body",
-                    label = "Body",
-                    content = ""
-                )
-
-                submitButton()
+                articleForm(value, fieldErr)
             }
         }
     }
