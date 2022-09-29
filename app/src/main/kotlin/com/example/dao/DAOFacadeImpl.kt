@@ -60,14 +60,28 @@ class DAOFacadeImpl : DAOFacade {
         val insertStmt = UserTable.insert {
             it[UserTable.id] = UUID.randomUUID().toString()
             it[UserTable.email] = email
-            it[UserTable.password] = Hashing.sha256()
-                .hashString(password, StandardCharsets.UTF_8)
-                .asBytes()
+            it[UserTable.password] = encryptPassword(password)
             it[UserTable.createdAt] = ZonedDateTime.now()
                 .toEpochSecond()
         }
 
         insertStmt.resultedValues?.singleOrNull()?.let(::resultRowToAccount)
+    }
+
+    override suspend fun emailLogin(email: String, password: String): Account? = userQuery {
+        val pw = encryptPassword(password)
+        UserTable
+            .select {
+                (UserTable.email eq email) and (UserTable.password eq pw)
+            }
+            .map(::resultRowToAccount)
+            .singleOrNull()
+    }
+
+    private fun encryptPassword(str: String): ByteArray {
+        return Hashing.sha256()
+            .hashString(str, StandardCharsets.UTF_8)
+            .asBytes()
     }
 }
 

@@ -2,7 +2,6 @@ package com.example.dao
 
 import com.example.models.Account
 import com.example.models.Article
-import com.example.models.EmailSignUp
 
 interface DAOFacade {
     suspend fun allArticles(): List<Article>
@@ -12,4 +11,6 @@ interface DAOFacade {
     suspend fun deleteArticle(id: Int): Boolean
 
     suspend fun emailSignUp(email: String, password: String): Account?
+
+    suspend fun emailLogin(email: String, password: String): Account?
 }
