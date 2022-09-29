@@ -1,7 +1,10 @@
 package com.example.models
 
+import io.ktor.server.auth.*
+import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 
+@Serializable
 data class Account(
     val id: String,
     val wxId: String? = null,
@@ -9,14 +12,9 @@ data class Account(
     val mobile: String? = null,
     val userName: String? = null,
     val createdAt: Long,
-)
+) : Principal
 
-data class EmailSignUp(
-    val email: String,
-    val password: String,
-)
-
-object UserTable : Table() {
+object UserTable : Table(name = "user") {
     val id = char("id", 36)
     val mobile = varchar("mobile", 16)
         .nullable()
