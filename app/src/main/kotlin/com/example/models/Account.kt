@@ -12,7 +12,15 @@ data class Account(
     val mobile: String? = null,
     val userName: String? = null,
     val createdAt: Long,
-) : Principal
+) : Principal {
+    val displayName: String
+        get() = when {
+            userName != null -> userName
+            email != null -> email.split("@")[0]
+            mobile != null -> mobile.replaceRange(4, mobile.length, "*")
+            else -> ""
+        }
+}
 
 object UserTable : Table(name = "user") {
     val id = char("id", 36)
