@@ -20,6 +20,7 @@ fun main() {
 fun Application.webModule() {
     configureAuthRouting()
     configureArticleRouting()
+    configureAuthentication()
 }
 
 fun Application.apiModule() {
