@@ -1,6 +1,7 @@
 package com.example.routes
 
 import com.example.dao.dao
+import com.example.models.Account
 import com.example.models.Credentials
 import com.example.pages.forgotPasswordPage
 import com.example.pages.loginPage
@@ -31,6 +32,10 @@ fun Route.authRouting() {
                 )
                 val errMsg = su.validate()
                 if (errMsg.isNotEmpty()) {
+                    call.respondHtml(HttpStatusCode.OK) {
+                        loginPage(errMsg, su)
+                    }
+                } else {
                     val account = dao.emailLogin(su.email, su.password)
                     if (account != null) {
                         call.sessions.set(account)
@@ -42,10 +47,6 @@ fun Route.authRouting() {
                                 formErr = "Not Found"
                             )
                         }
-                    }
-                } else {
-                    call.respondHtml(HttpStatusCode.OK) {
-                        loginPage(errMsg, su)
                     }
                 }
             }
@@ -92,6 +93,11 @@ fun Route.authRouting() {
             call.respondHtml(HttpStatusCode.OK) {
                 forgotPasswordPage()
             }
+        }
+
+        get("logout") {
+            call.sessions.clear<Account>()
+            call.respondRedirect("/auth/login")
         }
     }
 }
