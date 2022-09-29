@@ -1,6 +1,7 @@
 package com.example.routes
 
 import com.example.dao.dao
+import com.example.models.Credentials
 import com.example.pages.forgotPasswordPage
 import com.example.pages.loginPage
 import com.example.pages.signupPage
@@ -10,6 +11,7 @@ import io.ktor.server.html.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.server.sessions.*
 import io.ktor.server.util.*
 
 fun Route.authRouting() {
@@ -20,12 +22,32 @@ fun Route.authRouting() {
                     loginPage()
                 }
             }
+
             post {
                 val formParams = call.receiveParameters()
-                val email = formParams.getOrFail("email")
-                val password = formParams.getOrFail("password")
-
-                call.respondRedirect("/articles")
+                val su = Credentials(
+                    email = formParams.getOrFail("email"),
+                    password = formParams.getOrFail("password"),
+                )
+                val errMsg = su.validate()
+                if (errMsg.isNotEmpty()) {
+                    val account = dao.emailLogin(su.email, su.password)
+                    if (account != null) {
+                        call.sessions.set(account)
+                        call.respondRedirect("/articles")
+                    } else {
+                        call.respondHtml(HttpStatusCode.OK) {
+                            loginPage(
+                                value = su,
+                                formErr = "Not Found"
+                            )
+                        }
+                    }
+                } else {
+                    call.respondHtml(HttpStatusCode.OK) {
+                        loginPage(errMsg, su)
+                    }
+                }
             }
         }
 
@@ -38,10 +60,31 @@ fun Route.authRouting() {
 
             post {
                 val formParams = call.receiveParameters()
-                val email = formParams.getOrFail("email")
-                val password = formParams.getOrFail("password")
-                val account = dao.emailSignUp(email, password)
-                call.respondRedirect("/articles")
+                val su = Credentials(
+                    email = formParams.getOrFail("email"),
+                    password = formParams.getOrFail("password"),
+                    confirmPassword = formParams.getOrFail("confirmPassword")
+                )
+
+                val errMsg = su.validate(true)
+                if (errMsg.isEmpty()) {
+                    val account = dao.emailSignUp(su.email, su.password)
+                    if (account != null) {
+                        call.sessions.set(account)
+                        call.respondRedirect("/articles")
+                    } else {
+                        call.respondHtml(HttpStatusCode.OK) {
+                            signupPage(
+                                value = su,
+                                formErr = "Not Found"
+                            )
+                        }
+                    }
+                } else {
+                    call.respondHtml(HttpStatusCode.OK) {
+                        signupPage(errMsg, su)
+                    }
+                }
             }
         }
 
