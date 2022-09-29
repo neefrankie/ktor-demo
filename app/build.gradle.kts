@@ -57,6 +57,7 @@ dependencies {
 
     implementation("io.ktor:ktor-server-html-builder:$ktor_version")
     implementation("io.ktor:ktor-server-auth:$ktor_version")
+    implementation("io.ktor:ktor-server-sessions:$ktor_version")
 
     implementation("io.github.cdimascio:dotenv-kotlin:6.3.1")
 
