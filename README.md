@@ -1,5 +1,5 @@
-# Article API
+# Ktor Demo
 
-A restful API built on Ktor to server FTC's content
+This app demonstrates how to use Ktor to build a website.
 
 To generate a jar, run `gradle buildFatJar`

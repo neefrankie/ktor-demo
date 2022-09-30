@@ -87,6 +87,6 @@ tasks.jar {
 
 ktor {
     fatJar {
-        archiveFileName.set("article-api-all-${project.version}.jar")
+        archiveFileName.set("ktor-demo-all-${project.version}.jar")
     }
 }
